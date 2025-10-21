@@ -2,7 +2,6 @@
 layout: article-nosidebar
 title: Installing Node
 permalink: /install-node/
-active: 'homework'
 ---
 
 {% assign lvl = page.url | append:'X' | split:'/' | size %}
