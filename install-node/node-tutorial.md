@@ -12,7 +12,7 @@ This tutorial has sections covering the following topics:
 * TOC
 {:toc}
 
-If you have any trouble installing Node, please [post to Piazza](http://piazza.com/stanford/spring2017/cs193x).
+
 
 <section class="part" markdown="1">
 
