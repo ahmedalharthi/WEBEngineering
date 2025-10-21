@@ -13,70 +13,156 @@ This tutorial has sections covering the following topics:
 {:toc}
 
 
-
 <section class="part" markdown="1">
 
 ## Installing Node.js
 
-### 1) Download Installer for Node 7.10.0
+> Note: There are two main Node.js release lines:
+> - "LTS" (Long Term Support) — stable and recommended for most learners and production projects.
+> - "Current" — newest features; useful for experimenting.
+>
+> For class work and production, we strongly recommend installing the latest LTS release (or using a version manager so you can switch between releases easily).
+
+### Recommended: Install a version manager (nvm)
 {:.no_toc}
 
-* Navigate to [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
-* Select and download the installer for your operating system.
-  * Most contemporary laptops will use a 64-bit distribution.
-* **Click "Current"**: Latest features to download Node version 7. Do **not** download LTS.
-  * **NOTE:** This is different from what we said in an earlier version of the instructions. If you've already installed LTS, please re-download the Current version and install that instead.
+Using a version manager is the easiest and safest way to install Node.js. It avoids permission problems and lets you switch Node versions per-project.
+
+- Install nvm (macOS / Linux):
+
+```bash
+# Install or update nvm (from the official nvm repository)
+# NOTE: Check https://github.com/nvm-sh/nvm for the latest install instructions.
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+
+# Restart your terminal or source your shell profile, for example:
+source ~/.bashrc   # or ~/.zshrc, ~/.profile depending on your shell
+
+# Install the latest LTS (recommended) and set it as default
+nvm install --lts
+nvm use --lts
+nvm alias default lts/*
+```
+
+- On Windows: use nvm-windows (a separate project): https://github.com/coreybutler/nvm-windows
+  - nvm-windows has a different installer and command set; follow that project's instructions.
+
+Examples:
+
+```bash
+nvm ls               # list installed Node versions
+nvm install 20       # install Node.js v20.x (replace 20 with any major version)
+nvm use 20
+node -v
+```
+
+Using nvm avoids modifying system directories and makes it trivial to try different Node versions.
+
+### Install from the official website (macOS / Windows)
+{:.no_toc}
+
+If you prefer a GUI installer, download Node from https://nodejs.org/en/download/:
+
+- Download the **LTS** installer (recommended for most users).
+- macOS: a .pkg installer
+- Windows: an .msi installer
+- Linux: tarballs and distribution packages are available
+
+After installing, verify:
+
+```bash
+node -v   # should show the installed version, e.g. vXX.YY.Z
+npm -v    # npm is bundled with Node and should be available
+npx --version
+```
+
+### Install with Homebrew (macOS)
+{:.no_toc}
+
+If you use Homebrew:
+
+```bash
+# Install Homebrew if you don't have it: https://brew.sh/
+brew update
+brew install node    # installs the latest stable Node; you can also install node@<major> if needed
+```
+
+On Apple Silicon Macs Homebrew installs under /opt/homebrew; ensure your PATH includes the Homebrew bin directory. Using nvm is still preferred for per-user version management.
+
+### Install on Linux (apt, dnf, pacman)
+{:.no_toc}
+
+Use your distro packages or NodeSource. Example for Debian/Ubuntu using NodeSource (replace the major version if you need a specific one):
+
+```bash
+# Example: install Node.js 20.x via NodeSource (replace with desired major version)
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+Alternatively, use nvm for per-user installs (recommended for development machines).
+
+### 1) Download Installer (if using installer)
+{:.no_toc}
+
+* Visit https://nodejs.org/en/download/ and choose the LTS installer for your operating system.
+* On macOS you will get a .pkg; on Windows an .msi.
 
 <img src="images/node-download.png" class="screenshot" />
 
 ### 2) Follow GUI installation instructions
 {:.no_toc}
 
-* Open the `node-v7.10.0.pkg` file that you downloaded.
-  * **NOTE:** This file needs to start with **`node-v7`**, and not `node-v6`. If you've downloaded a file that starts with `node-v6`, you downloaded the wrong one. Go back to [Step 1 of these instructions](#download-installer-for-node-7100) and remember to click "Current": Don't download LTS.
-* Just follow the prompts.
-* For Macs: If this installation process fails, it is possibly due to the recent System Integrity Protection feature added in El Capitan and subsequent versions of MacOS. Refer to [this section](#node-wont-install-on-mac) to disable SIP and then run the node installer again.
+* Open the downloaded installer and follow the prompts.
+* On macOS you may need to enter your password to allow system changes.
+* If you run into permission or PATH issues, consider switching to nvm instead of a system installer.
 
 <img src="images/node-installer.png" class="screenshot" />
-
 
 ### 3) Testing Node.js
 {:.no_toc}
 
-* Open up Terminal (or your Windows command line interface)
-* Type `node` after the command prompt and hit Enter
-* You should get a JavaScript REPL, similar to the console in the Chrome inspector.
-* Try a single line of JavaScript to test it out.
-* Hit Ctrl-C twice to exit the REPL
-* Run `node -v` in terminal and then make sure you have `v7.10.0` installed.
+* Open Terminal (macOS / Linux) or PowerShell / Command Prompt (Windows).
+* Type `node` and press Enter to open the interactive REPL.
+* Try a simple expression, e.g. `console.log('hello')` or `1 + 2`.
+* Press Ctrl-C twice to exit the REPL.
+* Run `node -v` to confirm the installed version.
 
 <img src="images/node-repl.png" class="screenshot" />
 <img src="images/node-version.png" class="screenshot" />
 
 
-### 4) Testing `npm`
+### 4) Testing `npm` and `npx`
 {:.no_toc}
 
-`npm` stands for `Node Package Manager`. Packages are like libraries. The Node runtime has provided a handy way of accessing, installing and managing these libraries.
+npm (Node Package Manager) is bundled with Node. npx allows running package binaries without installing them globally.
 
-* At the command line, type `npm` after the command prompt and hit Enter
-* You should see the following:
-  <img src="images/4D41B9E8A80FAEBD119129527884995D.jpg" class="screenshot" />
+```bash
+npm -v
+npx --version
+```
+
+Try a small example:
+
+```bash
+mkdir mynode && cd mynode
+npm init -y
+npm install lodash
+node -e "console.log(require('lodash').VERSION)"
+```
 
 ### 5) OPTIONAL: Install `http-server`
 {:.no_toc}
 
-The `http-server` command is the NodeJS equivalent of Python's `SimpleHTTPServer`. This is not necessary for CS193X, but you may find it useful in general.
+http-server is a simple static file server useful for quick testing.
 
-* Download `http-server` by running `npm install http-server -g` at the command line.
-* Documentation for `http-server`: `https://www.npmjs.com/package/http-server`
-* You will see a progress bar and a bunch of text ouput.
-* Spin up a local server by running `http-server` at the command line.
-* You should see the following:
-  <img src="images/22BF88252D03AA4742C365BE786DB8BB.jpg" class="screenshot" />
-* Visit the address specified on the command line in your browser (in this case `http://127.0.0.1:8080`)
-* You should see the following (note the node.js runtime in the red circle):
-  <img src="images/6B11E05911A58131D82442C2235F35CC.jpg" class="screenshot" />
+```bash
+npm install -g http-server
+# Run in any directory to serve files:
+http-server
+```
+
+Visit the address shown in your browser (e.g. http://127.0.0.1:8080).
 
 </section>
 
@@ -92,8 +178,8 @@ Skip this section if you are already familiar with command line interfaces.
 
 * The command line is just another way of controlling your computer.
 * It is a _textual_ interface. The icons that you commonly interact with (i.e. click on) are parts of a _graphical_ user interface. They can accomplish many of the same things!
-* For most development work, a CLI (command line interface) is much more expedient because it allows you to work more fluidly with code and run code/commands that do not have a graphical user interface. At the command line, you are navigating the same filesystem and computer that you would in Finder or any Filesystem explorer.
-* However, you have way more control over what you can see and do. This is really powerful, but with great power comes great responsibility. You don't need to be scared of the command line, but you do need to recognize that it's not the time to "guess" whether you are about to run the right command. Some commands can be very problematic, such as deleting large amounts of your filesystem (and skipping the trashbin...). We will not be mucking about too much with the command line (and no, it's not dangerous to leave it running when you're not looking), but please be aware of blindly copying-and-pasting code from StackOverflow and running it without consideration. These types of scenarios can end poorly.
+* For most development work, a CLI (command line interface) is much more expedient because it allows you to work more fluidly with code and run code/commands that do not have a graphical user interfac[...] 
+* However, you have way more control over what you can see and do. This is really powerful, but with great power comes great responsibility. You don't need to be scared of the command line, but you do[...] 
 
 ### Some basic commands
 {:.no_toc}
@@ -124,17 +210,17 @@ $ cd
 # The dot-dot stands for the parent directory. It means to go one directory "up."
 $ cd ..
 # You can navigate multiple folders in one go:
-$ cd somefolder/place/code/ 	
+$ cd somefolder/place/code/ 
 ```
 
 ```bash
 # List the files in a directory -- aka "whats in this folder?"
 $ ls
-> Somefolder	Code	Photos
-> Dogpictures	GIFs	CS193X
-> rootkit		script.py
+> Somefolder Code Photos
+> Dogpictures GIFs CS193X
+> rootkit  script.py
 >
-$ ls *.py 	# you can use regular expressions!
+$ ls *.py  # you can use regular expressions!
 > script.py
 ```
 
@@ -142,7 +228,7 @@ $ ls *.py 	# you can use regular expressions!
 # Makes a new directory -- aka "makes a new folder"
 $ mkdir hw5
 $ ls
-> Code	Random 	hw5
+> Code Random  hw5
 $ cd hw5
 $ pwd
 > ~/User/somefolder/hw5
@@ -167,7 +253,7 @@ $ open somefile.py
 
 Further References:
 
-* [https://practicalunix.org/](https://practicalunix.org/) or (CS1U: Practical Unix)
+* https://practicalunix.org/ or (CS1U: Practical Unix)
 * Unix manpages: run `man [command]` to see the complete, but verbose and sometimes hard to understand, documentation for that command.
 </section>
 
@@ -177,43 +263,24 @@ Further References:
 
 This section contains information on how to debug problems with installing Node.
 
-### Node won't install on Mac
+### Common issues and fixes
 {:.no_toc}
 
-If Node doesn't install on Mac, it might be due to the System Integrity Protection (SIP) added in El Capitan. Try disabling SIP using the instructions below.
+- Permission errors when installing global npm packages:
+  - Avoid using sudo with npm. If you installed Node system-wide and you see EACCES errors, either reinstall using a version manager (nvm) or follow the official npm docs to change npm's default directory: https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally
 
-**NOTE:** While there is no real harm in removing the System Integrity Protection feature on Mac, you don't need to follow these instructions unless you had problems with your original Node installation.
+- PATH problems after installing:
+  - Ensure the directory containing `node` and `npm` is in your PATH. If you installed with nvm, make sure your shell profile (e.g. ~/.bashrc or ~/.zshrc) loads nvm (the nvm installer adds the necessary lines).
 
-Full instructions from [MacWorld UK](http://www.macworld.co.uk/how-to/mac/how-turn-off-mac-os-x-system-integrity-protection-rootless-3638975/)
+- macOS Apple Silicon (M1/M2) issues:
+  - Homebrew installs to /opt/homebrew on Apple Silicon. Ensure /opt/homebrew/bin is in your PATH.
+  - Consider using nvm to avoid mixing system and Homebrew installations.
 
-_Disclaimer:_ We are disabling a security feature installed by Apple. This is necessary for many CS-related development activities, but it is not something everyone does on their laptop. This guide is not liable for any damage caused to your files or computer. It is _very_ unlikely that disabling this feature could cause any negative side effects to your laptop, but if you're new to this process it is prudent to make a back-up.
+- If a GUI installer fails:
+  - Check the installer log and the macOS Console for error messages.
+  - Prefer nvm or Homebrew if you need an easier developer experience.
 
-* Back-up your computer and files. (Up to you.)
-* Shutdown your Mac
-* Hold down Command-R and press the Power button. Keep holding Command-R until the Apple logo appears.
-* Wait for OSX to boot into the OSX Utilities window.
-* On the upper toolbar menu, choose `Utilities` > `Terminal`
-* Type `csrutil disable` at the command line and hit Enter
-* Type `reboot` at the command line and hit Enter
-* Your Mac will now restart.
-* After booting up, open Terminal.
-* Type `csrutil status`.
-* You should see this message: `System Integrity Protection status: disabled.`
-* Continue to installing packages specified above.
-
-After installing the above software, you may want to re-enable SIP. Following roughly the same instructions as above:
-
-* Back-up your computer and files. (Up to you.)
-* Shutdown your Mac
-* Hold down Command-R and press the Power button. Keep holding Command-R until the Apple logo appears.
-* Wait for OSX to boot into the OSX Utilities window.
-* On the upper toolbar menu, choose `Utilities` > `Terminal`
-* Type `csrutil enable` at the command line and hit Enter
-* Type `reboot` at the command line and hit Enter
-* Your Mac will now restart.
-* After booting up, open Terminal.
-* Type `csrutil status`.
-* You should see this message: `System Integrity Protection status: enabled.`
+> Note: Older guides instructed disabling System Integrity Protection (SIP) on macOS. In almost all cases this is unnecessary and reduces security; do not disable SIP unless you fully understand the risks and have a specific documented need.
 
 </section>
 <section class="part" markdown="1">
@@ -221,5 +288,4 @@ After installing the above software, you may want to re-enable SIP. Following ro
 ## Credits
 {:.no_toc}
 
-This tutorial was written by our TA Zach Maurer. Thanks, Zach!
-</section>
+This tutorial was written by  TA Zach Maurer and updated by Ahmed Alharthi. Thanks, Zach!
