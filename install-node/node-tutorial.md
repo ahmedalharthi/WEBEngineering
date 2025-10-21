@@ -7,7 +7,7 @@ permalink: /install-node/
 {% assign lvl = page.url | append:'X' | split:'/' | size %}
 {% capture relative %}{% for i in (3..lvl) %}../{% endfor %}{% endcapture %}
 
-This tutorial has sections covering the following topics:
+This tutorial has sections covering the following topics:     
 
 * TOC
 {:toc}
@@ -226,12 +226,12 @@ $ ls *.py  # you can use regular expressions!
 
 ```bash
 # Makes a new directory -- aka "makes a new folder"
-$ mkdir hw5
+$ mkdir hw
 $ ls
-> Code Random  hw5
-$ cd hw5
+> Code Random  hw
+$ cd hw
 $ pwd
-> ~/User/somefolder/hw5
+> ~/User/somefolder/hw
 ```
 
 ```bash
