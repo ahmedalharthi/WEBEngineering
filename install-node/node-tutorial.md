@@ -1,7 +1,5 @@
 ---
-layout: article-nosidebar
 title: Installing Node
-permalink: /install-node/
 ---
 
 {% assign lvl = page.url | append:'X' | split:'/' | size %}
@@ -10,7 +8,27 @@ permalink: /install-node/
 This tutorial has sections covering the following topics:     
 
 * TOC
-{:toc}
+  {:toc}
+
+- [Installing Node.js](#installing-nodejs)
+  * [Recommended: Install a version manager (nvm)](#recommended--install-a-version-manager--nvm-)
+  * [Install from the official website (macOS / Windows)](#install-from-the-official-website--macos---windows-)
+  * [Install with Homebrew (macOS)](#install-with-homebrew--macos-)
+  * [Install on Linux (apt, dnf, pacman)](#install-on-linux--apt--dnf--pacman-)
+  * [1) Download Installer (if using installer)](#1--download-installer--if-using-installer-)
+  * [2) Follow GUI installation instructions](#2--follow-gui-installation-instructions)
+  * [3) Testing Node.js](#3--testing-nodejs)
+  * [4) Testing `npm` and `npx`](#4--testing--npm--and--npx-)
+  * [5) OPTIONAL: Install `http-server`](#5--optional--install--http-server-)
+- [Basic Command Line Skills](#basic-command-line-skills)
+  * [Concepts](#concepts)
+  * [Some basic commands](#some-basic-commands)
+  * [A note on deleting files](#a-note-on-deleting-files)
+- [Troubleshooting](#troubleshooting)
+  * [Common issues and fixes](#common-issues-and-fixes)
+- [Credits](#credits)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
 <section class="part" markdown="1">
